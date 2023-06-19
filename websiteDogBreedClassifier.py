@@ -14,7 +14,7 @@ breeds = ["Australian Shepherd", "Basenji","Bernese mountain","Borzoi","Bulldog"
         "French bulldog","Glen of imaal terrier","Irish setter","Rhodesian ridgeback","Saluki",
         "Scottish deerhound","Shiba Inu","Shih Tzu","Soft coated wheaten terrier"]
 
-sample_image_path = "/Users/rouakabalan/Desktop/AI_project_term/train/Australian shepherd/images (1).jpeg"
+sample_image_path = "/train/Australian shepherd/images (1).jpeg"
 
 UPLOAD_FOLDER = 'static/uploads'
 
