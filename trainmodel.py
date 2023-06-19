@@ -6,6 +6,7 @@ from keras import backend as K
 import gc
 from keras.preprocessing.image import ImageDataGenerator
 
+#initialization of the functions and directories, and adding the parameters in our project.
 IMG_WIDTH,IMG_HEIGHT =(150,150)
 
 TRAIN_DATA_DIR = 'train'
@@ -21,7 +22,7 @@ def build_model():
         input_shape =(3,IMG_WIDTH, IMG_HEIGHT)
     else:
         input_shape =(IMG_WIDTH, IMG_HEIGHT, 3)
-        
+    #sequential data augmentation substantially improves sample diversity, leading to improved test performance, especially in deep neural network
     model = Sequential()
     model.add(Conv2D(32, (3,3), input_shape=input_shape))
     model.add(Activation('relu'))
@@ -82,14 +83,14 @@ def train_model(model):
     )
     return model 
         
-
+# .h5 where our trained model is saved, it will be used while we run our main classifier.
 def save_model(model):
     model.save('saved_model.h5')
 
 
 
 
-
+#defining main function which includes the command to build, train, and save the model (myModel)
 def main():
     #create the model
     
