@@ -92,12 +92,10 @@ def uploaded_file(filename):
     with myGraph.as_default():
         set_session(mySession)
         result = myModel.predict(test_image)
-        print(result)
         pred = np.argmax(result[0], axis=-1)
-        print('pred: ' + str(pred))
         #image_src = os.path.dirname(__file__) + app.config['UPLOAD_FOLDER'] + '\\' +filename
         if pred < 0.5 :
-            answer = "<div class='col text-center'><img width='150' height='150' src='"+url_for('static', filename='/uploads/'+filename)+"' class='img-thumbnail' /><h4>guess:" +str(pred)+"</h4></div><div class='col'></div><div class='w-100'></div>"     
+            answer = "<div class='col text-center'><img width='150' height='150' src='"+url_for('static', filename='/uploads/'+filename)+"' class='img-thumbnail' /><h4>Confidence: " +str(pred)+"</h4></div><div class='col'></div><div class='w-100'></div>"     
             results.append(answer)
         print(results)
         return render_template('index.html',mybreeds=breeds,mysample_image_path=sample_image_path,len=len(results),results=results)
