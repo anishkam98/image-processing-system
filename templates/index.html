@@ -45,7 +45,7 @@
         </div>
         {% endfor %}
         <hr/>
-        <div id="guesses">
+        <div id="guesses" class="row">
             {% if results %} {% for i in range(len-1,-1,-1) %} {{ results[i]|safe }} {% endfor %} {% endif %}
         </div>
     </div>
