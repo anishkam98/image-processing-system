@@ -21,9 +21,6 @@ UPLOAD_FOLDER = 'static/uploads'
 #Allowed files
 ALLOWED_EXTENSIONS = {'png','jpg','jpeg','gif'}
 
-#create website 
-app = Flask(__name__)
-
 
 def load_model_from_file():
     #set up the machine learning session
@@ -33,6 +30,16 @@ def load_model_from_file():
     myModel = load_model('saved_model.h5')
     myGraph = tf.get_default_graph()
     return (mySession,myModel,myGraph)
+
+#create website 
+app = Flask(__name__)
+(mySession,myModel,myGraph) = load_model_from_file()
+app.config['SECRET_KEY'] = 'super secret key'
+app.config['SESSION'] = mySession
+app.config['MODEL'] = myModel
+app.config['GRAPH'] = myGraph    
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 
 #Try to allow only images
 def allowed_file(filename):
@@ -65,8 +72,7 @@ def upload_file():
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             return redirect(url_for('uploaded_file', filename=filename))
         
-        @app.route('/uploads/<filename>')
-
+@app.route('/uploads/<filename>')
 def uploaded_file(filename):
     test_image = image.load_img(UPLOAD_FOLDER+"/"+filename,target_size=(150,150))
     test_image = image.img_to_array(test_image)
@@ -86,21 +92,11 @@ def uploaded_file(filename):
 
 
 
-def main():
-    
-    (mySession,myModel,myGraph) = load_model_from_file()
-    app.config['SECRET_KEY'] = 'super secret key'
-    
-    app.config['SESSION'] = mySession
-    app.config['MODEL'] = myModel
-    app.config['GRAPH'] = myGraph
-    
-    app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-    app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
-    app.run()
-    
 # we will create a list of the results so far classified.
 results = []
 
+if __name__ == "__main__":
+    app.run()
+
 # launch the website
-main()
+#main()
