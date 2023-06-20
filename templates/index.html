@@ -21,7 +21,7 @@
         </div>
         <div class="row align-items-end">
             <div class="col text-center">
-                <img height="150" width="150" src="{{url_for('static', filename='bulldog.jpeg')}}" class="img-thumbnail" />
+                <img height="150" width="150" src="{{url_for('static', filename='n02099601_308.jpg')}}" class="img-thumbnail" />
                 <!--<h1>{{ mybreeds }}</h1>-->
             </div>
 
@@ -45,9 +45,17 @@
         </div>
         {% endfor %}
         <hr/>
-        <div id="guesses">
-            {% if results %} {% for i in range(len-1,-1,-1) %} {{ results[i]|safe }} {% endfor %} {% endif %}
+        <div id="guesses" class="row">
+            {% if results %}
+                {% for result in results %}
+                    <div class="col text-center">
+                        <h2>Guess: {{ result.predicted_breed }}</h2>
+                        <h4>Confidence: {{ result.confidence }}</h4>
+                    </div>
+                {% endfor %}
+            {% endif %}
         </div>
+        
     </div>
 
     <!-- Optional JavaScript -->
